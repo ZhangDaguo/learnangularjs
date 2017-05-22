@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>directive_cache</title>
+	<script src="../lib/angular.js"></script>
+</head>
+<body>
+	<hello></hello>
+	<script>
+	//模板缓存起来跟直接templateUrl再调用一遍什么区别 
+	// 模版缓存可以提高性能，使用templateUrl时，每次ng都需要编译
+	 	var myApp = angular.module('myApp', []);
+
+	 	// run方法在angular所有的依赖注入完之后，
+	 	// run方法应用一次。
+	 	myApp.run(function($templateCache){
+	 		$templateCache.put('hello.html','<div>hello angular!</div>')
+	 	})
+	 	myApp.directive('hello', function($templateCache){
+	 		return {
+	 			restrict: 'AEMC',
+	 			template: $templateCache.get('hello.html'),
+	 			replace: true
+	 		}
+	 	});
+	 	
+	</script>
+</body>
+</html>

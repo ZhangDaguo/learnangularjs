@@ -1,0 +1,22 @@
+<div class="product">
+  <div class="col-md-12">
+    <div class="form-group">
+    <!-- input中的值发生改变，titlFilter就会发射一系列事件
+    而我们就要订阅这个事件 -->
+      <input type="text" class="form-control" placeholder="请输入商品名称">
+    </div>
+  </div>
+  <!-- <div *ngFor="let product of products | filter: 'title' :keyword" class="col-md-4"> 自定义的过滤器, 下面这个是通过服务器的表单进行过滤-->
+  <div *ngFor="let product of products | async " class="col-md-4">
+    <div class="thumbnail">
+      <img [src]="imgUrl">
+      <div class="caption">
+        <span class="pull-right">{{product.price}}元</span>
+        <h4><a [routerLink]="['/product', product.id]">{{product.title}}</a></h4>
+        <p>{{product.desc}}</p>
+      </div>
+      <app-star [rating]="product.rating"></app-star>
+    </div>
+  </div>
+</div>
+

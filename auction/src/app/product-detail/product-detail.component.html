@@ -1,0 +1,47 @@
+<div class="thumbnail">
+  <img src="http://placehold.it/820x230">
+  <h4>{{product?.title}}<span>{{product?.price}}元</span></h4>
+  <p>{{product?.desc}}</p>
+  <!-- ?的意思是当product这个对象存在时，才能访问其属性 -->
+  <div>
+    <p class="pull-right">评价人数{{comments?.length}}</p>
+    <div>
+      <app-star [rating]="product?.rating"></app-star>
+    </div>
+  </div>
+</div>
+
+<div class="thumbnail">
+  <button class="btn btn-default" 
+    [class.active]="isWatched"
+    (click)="watchProduct()"
+    >
+    {{isWatched ? '取消关注' : '关注'}}
+  </button>
+  <label>最新出价:{{currentBid | number: '.2-2'}}</label>
+</div>
+
+<div class="well">
+  <div>
+    <button class="btn btn-success" (click)="isCommentHidden = !isCommentHidden">添加评价</button>
+  </div>
+  <div [hidden]="isCommentHidden">
+    <div>
+      <app-star [readonly]="false" [(rating)]="newRating"></app-star>
+    </div>
+    <div>
+      <textarea [(ngModel)]="newComment"></textarea>
+    </div>
+    <div>
+      <button class="btn btn-success" (click)="addComment()">提交</button>
+    </div>
+  </div>
+  <div class="row" *ngFor="let comment of comments">
+    <div class="col-md-12">
+      <app-star [rating]="comment.rating"></app-star>
+      <span>{{comment.username}}</span>
+      <span class="pull-right">{{comment.timestamp}}</span>
+      <p>{{comment.content}}</p>
+    </div>
+  </div>
+</div>
